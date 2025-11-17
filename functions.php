@@ -74,3 +74,20 @@ function up_register_item_category_tax() {
     register_taxonomy( 'item_category', array( 'item' ), $args );
 }
 add_action( 'init', 'up_register_item_category_tax' );
+
+
+
+
+
+
+
+
+// item 投稿タイプの REST API を完全に無効化
+add_filter( 'register_post_type_args', function( $args, $post_type ) {
+    if ( $post_type === 'item' ) {
+        $args['show_in_rest'] = false;     // RESTを完全に止める
+        $args['supports'] = array( 'title', 'editor', 'thumbnail' ); // クラシック用
+    }
+    return $args;
+}, 20, 2 );
+
